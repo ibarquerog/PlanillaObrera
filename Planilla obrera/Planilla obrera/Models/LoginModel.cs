@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
     public class LoginModel
     {
+
         [Required]
         [Display(Name = "Usuario")]
         public string Usuario { get; set; }

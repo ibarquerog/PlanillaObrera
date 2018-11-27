@@ -3,27 +3,86 @@
     ViewBag.Title = "Bonos";
 }
 
-<h2>Bonos</h2>
+
+<h1>Bonos</h1>
+<h4>Agregar</h4>
+@using (Html.BeginForm("Bonos", "Home", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.idObrero, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.idObrero, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.montoBono, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.montoBono, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Aplicar Bono" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<h4>Editar Bono</h4>
+@using (Html.BeginForm("Bonos", "Home", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.idObreroE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.idObreroE, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.montoBonoE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.montoBonoE, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Modificar Bono" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<h1>Valores por Hora</h1>
+<h4>Agregar</h4>
 @using (Html.BeginForm("Bonos", "Home", FormMethod.Post))
 {
 <div class="form-horizontal">
     <div class="form-group">
-        @Html.LabelFor(model => model.idObrero, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.puesto, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.idObrero, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.puesto, new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.montoBono, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.tipoJornada, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.montoBono, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.tipoJornada, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.valorHora, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.valorHora, new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Aplicar Bono" class="btn btn-default" />
+            <input type="submit" value="Guardar" class="btn btn-default" />
         </div>
     </div>
 </div>
 }
+

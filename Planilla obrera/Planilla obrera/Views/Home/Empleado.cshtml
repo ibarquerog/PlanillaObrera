@@ -1,0 +1,204 @@
+﻿@using System.Data.SqlClient;
+@using System.Configuration;
+@using System.Data;
+@{ string ObreroID = "";}
+
+@model UsuarioModel
+@{
+    ViewBag.Title = "Empleado";
+}
+
+<h2></h2>
+@using (Html.BeginForm("Bono", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Mis Planillas Semanales </h4>
+        <hr />
+    </div>
+    <div class="form-horizontal">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Doc ID Empleado</th>
+                    <th>Planilla Mensual</th>
+                    <th>Salario Bruto</th>
+                    <th>Salario Neto</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    SqlDataAdapter da;
+                    string usuario = Model.idObrero;
+                    DataSet ds = new DataSet();
+                    SqlConnection con = new SqlConnection("Data Source=DESKTOP-2OQBEMO;Initial Catalog=BD_Planillas;Integrated Security=True");
+                    SqlCommand cmd = new SqlCommand("spRetornarPlanillasSemanale", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@idEmpleado", System.Data.SqlDbType.Int).Value = int.Parse(usuario);
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    if (!object.Equals(ds.Tables[0], null))
+                    {
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    ObreroID = ds.Tables[0].Rows[i]["ID"].ToString();
+                                }
+                                <tr>
+                                    <th scope="row">@ds.Tables[0].Rows[i]["ID"]</th>
+                                    <td>@ds.Tables[0].Rows[i]["docIdEmpleado"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["idPlanillaMensual"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["SalarioBruto"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["SalarioNeto"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["Fecha"]</td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+}
+
+@using (Html.BeginForm("Bono", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Mis Planillas Mensuales </h4>
+        <hr />
+    </div>
+    <div class="form-horizontal">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Doc ID Empleado</th>
+                    <th>Fecha</th>
+                    <th>Salario Bruto</th>
+                    <th>Salario Neto</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    SqlDataAdapter da;
+                    string usuario = Model.idObrero;
+                    DataSet ds = new DataSet();
+                    SqlConnection con = new SqlConnection("Data Source=DESKTOP-2OQBEMO;Initial Catalog=BD_Planillas;Integrated Security=True");
+                    SqlCommand cmd = new SqlCommand("spRetornarPlanillasMensuales", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@idEmpleado", System.Data.SqlDbType.Int).Value = int.Parse(usuario);
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    if (!object.Equals(ds.Tables[0], null))
+                    {
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    ObreroID = ds.Tables[0].Rows[i]["ID"].ToString();
+                                }
+                                <tr>
+                                    <th scope="row">@ds.Tables[0].Rows[i]["ID"]</th>
+                                    <td>@ds.Tables[0].Rows[i]["docIdEmpleado"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["Fecha"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["SalarioBruto"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["SalarioNeto"]</td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+}
+
+@using (Html.BeginForm("Bono", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Historial de movimientos</h4>
+        <hr />
+    </div>
+    <div class="form-horizontal">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Movimiento</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>ID Empleado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    SqlDataAdapter da;
+                    string usuario = Model.idObrero;
+                    DataSet ds = new DataSet();
+                    SqlConnection con = new SqlConnection("Data Source=DESKTOP-2OQBEMO;Initial Catalog=BD_Planillas;Integrated Security=True");
+                    SqlCommand cmd = new SqlCommand("spRetornarMovimientos", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@idEmpleado", System.Data.SqlDbType.Int).Value = int.Parse(usuario);
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    if (!object.Equals(ds.Tables[0], null))
+                    {
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    ObreroID = ds.Tables[0].Rows[i]["ID"].ToString();
+                                }
+                                <tr>
+                                    <th scope="row">@ds.Tables[0].Rows[i]["ID"]</th>
+                                    <td>@ds.Tables[0].Rows[i]["Nombre"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["Fecha"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["idPlanillaSemanal"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["Monto"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["Monto"]</td>
+                                    <td>@ds.Tables[0].Rows[i]["docIdEmpleado"]</td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+}
+
